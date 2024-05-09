@@ -1,0 +1,23 @@
+name: Test
+on:
+  workflow_run:
+    workflows:
+      - Build
+    types:
+      - completed
+jobs:
+  test:
+    name: Test
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4.1.5
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: 20
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Test package
+        run: npm test -- --coverage
