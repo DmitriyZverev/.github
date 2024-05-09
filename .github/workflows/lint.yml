@@ -1,0 +1,19 @@
+name: Lint
+on:
+  workflow_call:
+    inputs:
+      prettier:
+        type: boolean
+        default: true
+        required: false
+      eslint:
+        type: boolean
+        default: true
+        required: false
+jobs:
+  prettier:
+    uses: ./.github/workflows/prettier.yml
+    if: ${{ inputs.prettier == true }}
+  eslint:
+    uses: ./.github/workflows/eslint.yml
+    if: ${{ inputs.eslint == true }}
