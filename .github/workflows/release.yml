@@ -1,0 +1,32 @@
+name: Release NPM package
+on:
+  workflow_call:
+    inputs:
+      npm_token
+jobs:
+  build:
+    name: Build NPM package
+    uses: ./.github/workflows/build.yml
+  publish:
+    name: Publish NPM package
+    runs-on: ubuntu-22.04
+    needs:
+      - build
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4.1.5
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: 20
+          cache: npm
+      - name: Use built package
+        uses: actions/download-artifact@master
+        with:
+          name: package
+          path: ./.package/
+      - name: Publish NPM package
+        working-directory: ./.package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
