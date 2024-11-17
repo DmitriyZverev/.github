@@ -12,8 +12,8 @@ on:
         required: false
 jobs:
   prettier:
-    uses: ./workflows/check-format.yml
+    uses: ./.github/workflows/check-format.yml
     if: ${{ inputs.format == true }}
   eslint:
-    uses: ./workflows/check-quality.yml
+    uses: ./.github/workflows/check-quality.yml
     if: ${{ inputs.quality == true }}
