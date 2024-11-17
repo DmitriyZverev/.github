@@ -1,0 +1,40 @@
+name: Commit version
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: Increment a version by the specified level
+        type: choice
+        required: true
+        options:
+          - major
+          - minor
+          - patch
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
+jobs:
+  commit_version:
+    name: Commit version
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4.2.2
+      - name: Configure Git repository user
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: Up version
+        run: npm version ${{ inputs.increment }} ${{ startsWith(inputs.increment, 'pre') && '--preid=dev' || ''}}
+      - name: Push changes
+        run: |
+          git push
+          git push --tags
