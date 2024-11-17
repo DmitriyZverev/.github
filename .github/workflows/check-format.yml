@@ -1,9 +1,9 @@
-name: Prettier
+name: Check code format
 on:
   workflow_call:
 jobs:
   prettier:
-    name: Prettier
+    name: Check code format
     runs-on: ubuntu-22.04
     steps:
       - name: Check out Git repository
@@ -15,5 +15,5 @@ jobs:
           cache: npm
       - name: Install Node.js dependencies
         run: npm ci
-      - name: Run Prettier
-        run: npm run prettier:check
+      - name: Run code formatter
+        run: npm run formatter:check

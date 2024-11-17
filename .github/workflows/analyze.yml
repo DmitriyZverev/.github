@@ -1,0 +1,19 @@
+name: Analyze code
+on:
+  workflow_call:
+    inputs:
+      format:
+        type: boolean
+        default: true
+        required: false
+      quality:
+        type: boolean
+        default: true
+        required: false
+jobs:
+  prettier:
+    uses: ./.github/workflows/check-format.yml
+    if: ${{ inputs.format == true }}
+  eslint:
+    uses: ./.github/workflows/check-quality.yml
+    if: ${{ inputs.quality == true }}
