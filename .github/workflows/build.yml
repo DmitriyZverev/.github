@@ -22,3 +22,5 @@ jobs:
         with:
           name: package
           path: ./.package/
+          if-no-files-found: error
+          include-hidden-files: true
