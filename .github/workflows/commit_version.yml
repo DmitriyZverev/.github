@@ -1,19 +1,11 @@
 name: Commit version
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       increment:
         description: Increment a version by the specified level
-        type: choice
+        type: string
         required: true
-        options:
-          - major
-          - minor
-          - patch
-          - premajor
-          - preminor
-          - prepatch
-          - prerelease
 jobs:
   commit_version:
     name: Commit version
