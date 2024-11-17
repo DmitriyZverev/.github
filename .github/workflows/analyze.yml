@@ -11,9 +11,9 @@ on:
         default: true
         required: false
 jobs:
-  prettier:
-    uses: ./.github/workflows/check-format.yml
+  check_format:
+    uses: ./.github/workflows/check_format.yml
     if: ${{ inputs.format == true }}
-  eslint:
-    uses: ./.github/workflows/check-quality.yml
+  check_quality:
+    uses: ./.github/workflows/check_quality.yml
     if: ${{ inputs.quality == true }}
