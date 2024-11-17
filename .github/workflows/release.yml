@@ -1,8 +1,6 @@
 name: Release NPM package
 on:
   workflow_call:
-    inputs:
-      npm_token
 jobs:
   build:
     name: Build NPM package
