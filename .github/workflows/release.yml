@@ -1,10 +1,9 @@
 name: Release NPM package
 on:
   workflow_call:
-    inputs:
+    secrets:
       npm_token:
         description: NPM registry auth token
-        type: string
         required: true
 jobs:
   build:
@@ -32,4 +31,4 @@ jobs:
         working-directory: ./.package
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
