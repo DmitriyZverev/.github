@@ -18,7 +18,7 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
       - name: Set up Node.js
-        uses: actions/setup-node@v2.5.2
+        uses: actions/setup-node@v4.4.0
         with:
           node-version: 22
           cache: npm
