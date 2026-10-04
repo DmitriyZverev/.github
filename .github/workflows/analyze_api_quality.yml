@@ -1,9 +1,9 @@
-name: Build
+name: Analyze public API quality
 on:
     workflow_call:
 jobs:
-    build:
-        name: Build
+    analyze_api_quality:
+        name: Analyze API quality
         runs-on: ubuntu-22.04
         steps:
             - name: Check out Git repository
@@ -15,12 +15,10 @@ jobs:
                   cache: npm
             - name: Install Node.js dependencies
               run: npm ci
-            - name: Build package
-              run: npm run build
-            - name: Upload the built artifact
-              uses: actions/upload-artifact@v7.0.1
+            - name: Use built package
+              uses: actions/download-artifact@v8.0.1
               with:
                   name: package
                   path: ./.package/
-                  if-no-files-found: error
-                  include-hidden-files: true
+            - name: Analyze API quality
+              run: npm run analyzer:api:check
