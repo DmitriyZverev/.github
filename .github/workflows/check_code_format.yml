@@ -1,9 +1,9 @@
-name: Build
+name: Check code format
 on:
     workflow_call:
 jobs:
-    build:
-        name: Build
+    check_code_format:
+        name: Check code format
         runs-on: ubuntu-22.04
         steps:
             - name: Check out Git repository
@@ -15,12 +15,5 @@ jobs:
                   cache: npm
             - name: Install Node.js dependencies
               run: npm ci
-            - name: Build package
-              run: npm run build
-            - name: Upload the built artifact
-              uses: actions/upload-artifact@v7.0.1
-              with:
-                  name: package
-                  path: ./.package/
-                  if-no-files-found: error
-                  include-hidden-files: true
+            - name: Run code formatter
+              run: npm run formatter:check
